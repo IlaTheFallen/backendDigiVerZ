@@ -169,6 +169,7 @@ def project_api_routes(endpoints):
             # features = request.form.get('features')
             # print(features)
             target = request.form.get('target')
+            id = request.form.get("id")
             # print(target)
             status = {
                 "code": 200,
@@ -177,8 +178,15 @@ def project_api_routes(endpoints):
                 "type": file.content_type,
                 # "features": features,
                 "target": target,
+                "datetime": datetime.now(),
                 "analysis": regression(file,target)
             }
+            userCollection.update_one(
+            {"_id": int(id)},
+            {"$push": {
+                "algorithm-analyzer": status
+            }}
+            )
         except Exception as e:
             print(e)
             status = {
@@ -186,6 +194,22 @@ def project_api_routes(endpoints):
                 "message": str(e)
             }
         resp["status"] = status
+        return resp
+
+    @endpoints.route('/algorithm-analysis-history', methods=['POST'])
+    def algorithm_analysis_history():
+        resp = {}
+        try:
+            req_body = request.json
+            user = userCollection.find_one({"_id": int(req_body['id'])})
+            resp['history'] = user['algorithm-analyzer']
+        except Exception as e:
+            print(e)
+            status = {
+                "code":500,
+                "message": str(e)
+            }
+            resp['status'] = status
         return resp
 
     @endpoints.route('/upload', methods=['POST'])

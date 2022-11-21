@@ -59,7 +59,8 @@ def regression(file,target):
         print('Interpret done...')
         compare = pull()
         resp['CompareHeader'] = list(compare)
-        resp['CompareValue'] = compare.values.tolist()
+        # resp['CompareValue'] = compare.values.tolist()
+        resp['CompareValue'] = compare.to_numpy().tolist()
     except Exception as e:
         print(e)
         resp['error'] = str(e)
