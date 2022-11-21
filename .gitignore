@@ -3,8 +3,6 @@ notebook/
 .env
 temp.csv
 temp.xlsx
-
-
 catboost_info/
 "Feature Importance.png"
 logs.logs
