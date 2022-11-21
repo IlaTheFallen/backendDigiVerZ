@@ -3,3 +3,11 @@ notebook/
 .env
 temp.csv
 temp.xlsx
+
+
+catboost_info/
+"Feature Importance.png"
+logs.logs
+"Prediction Error.png"
+Residuals.png
+"SHAP summary.png"
