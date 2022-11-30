@@ -6,8 +6,8 @@ from bson.objectid import ObjectId
 import os
 import gridfs
 from datetime import datetime
-from sparkAnalysis import eda
-from algorithmAnalyser import regression
+# from sparkAnalysis import eda
+from algorithmAnalyser import regression 
 
 load_dotenv()
 client = pymongo.MongoClient(os.getenv("MONGO_STRING"))
@@ -127,7 +127,7 @@ def project_api_routes(endpoints):
                 "type": file.content_type,
                 "metrics": metrics,
                 "datetime": datetime.now(),
-                "analysis": eda(file)
+                # "analysis": eda(file)
             }
             userCollection.update_one(
             {"_id": int(id)},
